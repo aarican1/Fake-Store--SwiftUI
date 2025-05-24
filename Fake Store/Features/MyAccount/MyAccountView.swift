@@ -9,7 +9,22 @@ import SwiftUI
 
 struct MyAccountView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment:.center,spacing: 24){
+            UserInformationView(profile: mockProfile)
+            
+            
+            VStack(spacing:16){
+                AccountOptionView(title: "My Orders", image: "truck.box.badge.clock.fill") { }
+                AccountOptionView(title: "My Comments", image: "star.bubble.fill") { }
+                AccountOptionView(title: "Buy Again", image: "arrow.counterclockwise.circle.fill") { }
+            }
+            
+            .background(Color.green.opacity(0.09))
+            .cornerRadius(12)
+            
+            Spacer()
+        }
+        .padding()
     }
 }
 

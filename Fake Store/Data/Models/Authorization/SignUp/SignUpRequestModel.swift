@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct SignUpRequestModel: Codable {
+    var name: String
+    var email: String
+    var password: String
+    var avatar : String = "https://picsum.photos/800"
+}

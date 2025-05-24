@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct SignUpResponseModel : Codable {
+    var id: Int
+    var email, password, name, role: String
+    var avatar: String
+    var creationAt, updatedAt: String
+}

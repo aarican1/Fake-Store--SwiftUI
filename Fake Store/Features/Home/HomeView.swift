@@ -8,11 +8,47 @@
 import SwiftUI
 
 struct HomeView: View {
+    @ObservedObject var viewModel = HomeViewModel()
+    @Environment(Router.self) private var router
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        @Bindable var router = router
+        
+        Group{
+            if viewModel.isLoading{
+                ProgressView()
+                    .scaleEffect(2)
+            } else{
+                VStack{
+                    SearchView(text:$viewModel.searchText )
+                        .onSubmit {
+                            Task{
+                                await viewModel.filterProductsByTitle()
+                            }
+                        }
+                    
+                    CategoriesView(viewModel: viewModel)
+                        .frame(height: 56)
+                    
+                    ProductsView(viewModel: viewModel)
+                        .frame(maxHeight:.infinity)
+                }
+                .padding(.horizontal)
+            }
+        }.onAppear{
+            Task{
+                await viewModel.getCategories()
+                await viewModel.getProducts()
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
+    
+      
+        
 }
 
 #Preview {
     HomeView()
+        .environment(Router())
 }

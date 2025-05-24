@@ -13,12 +13,19 @@ struct CategoriesView: View {
         ScrollView(.horizontal,showsIndicators: false) {
             LazyHStack(spacing:12) {
                 ForEach(viewModel.categories,id:\.self) { category in
-                    //MARK: fix me
-                    CategoryItemView(category: category, isSelected: viewModel.selectedCategory == category) {
+                    let isSelected = viewModel.selectedCategory == category
+                    CategoryItemView(category: category, isSelected:isSelected) {
                         Task{
-                            await viewModel.filterProductsByCategory(by: category)
+                            if isSelected {
+                                viewModel.selectedCategory = nil
+                                await viewModel.getProducts()
+                            } else {
+                                viewModel.selectedCategory = category
+                                await viewModel.filterProductsByCategory(by: category)
+                            }
                         }
                     }
+                    
                 }
             }
         }

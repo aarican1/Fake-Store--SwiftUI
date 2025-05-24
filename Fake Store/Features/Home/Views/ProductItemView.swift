@@ -29,7 +29,7 @@ struct ProductItemView: View {
                             //.aspectRatio(9/16, contentMode: .fit)
                             .cornerRadius(8)
                         
-                    case .failure(let error):
+                    case .failure(_):
                         Image(systemName: "photo.on.rectangle.angled")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)

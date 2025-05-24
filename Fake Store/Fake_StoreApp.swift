@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct Fake_StoreApp: App {
+    @State private var router  = Router()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashView()
+                .environment(router)
         }
     }
 }
