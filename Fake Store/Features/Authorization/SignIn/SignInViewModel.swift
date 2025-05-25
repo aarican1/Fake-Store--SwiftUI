@@ -58,7 +58,6 @@ final class SignInViewModel:ObservableObject {
         do {
             isLoading = true
           let response = try await  service.signIn(requestModel: requestModel)
-            print(response)
             isLoading = false
             isSignIn = true
         }

@@ -11,7 +11,7 @@ struct AddedProductView: View {
     let product: Product
     let action: () -> Void
     var body: some View {
-        HStack{
+        HStack(spacing: 16){
             CustomAsyncImageView(url: product.images.first)
                 .frame(maxWidth: 72,maxHeight: 128)
 

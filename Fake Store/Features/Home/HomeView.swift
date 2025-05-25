@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
     @Environment(Router.self) private var router
+    @Binding var selectedTab: MainTabView.Tab
+    
     
     var body: some View {
         @Bindable var router = router
@@ -49,6 +51,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(selectedTab: .constant(.home))
         .environment(Router())
 }

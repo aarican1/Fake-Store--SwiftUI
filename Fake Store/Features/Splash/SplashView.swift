@@ -21,10 +21,7 @@ struct SplashView: View {
                         case .signUp:
                             SignUpView()
                         
-                        case .home:
-                            HomeView(
-                            )
-                    case .mainTab:
+                        case .mainTab:
                         MainTabView()
                         
                         case .signIn:

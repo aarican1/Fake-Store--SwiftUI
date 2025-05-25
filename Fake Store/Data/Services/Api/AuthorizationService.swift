@@ -49,7 +49,7 @@ final class AuthorizationService{
     func getProfile() async throws -> ProfileResponseModel {
         
         do {
-            guard let accessToken : String  =  try  keychainService.read(for:KeychainService.AuthKey.accessToken.rawValue) else{   throw ErrorModel(title: "Token Error", message: "No access token found.", statusCode: 401)}
+            guard let accessToken : String  =  try  keychainService.read(for:KeychainService.AuthKey.accessToken.rawValue) else{ throw ErrorModel(title: "Token Error", message: "No access token found.", statusCode: 401)}
             
             let response : ProfileResponseModel = try await network.request(endPoint:  EndPoint.getProfile.rawValue,method: .get, headers: ["Authorization" : "Bearer \(accessToken)"] )
             

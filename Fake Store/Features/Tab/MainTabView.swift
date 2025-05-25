@@ -11,93 +11,91 @@ struct MainTabView: View {
     @ObservedObject private var basketViewModel = BasketViewModel.shared
     @Environment(Router.self) private var router
     
+    @State private var selectedTab:Tab  =  .home
+    
+    enum Tab: Hashable{
+        case home
+        case basket
+        case myAccount
+    }
+    
     var body: some View {
         @Bindable var router = router
-        TabView{
+        TabView(selection:$selectedTab){
+            
+            
             //HOME
-                HomeView()
+                HomeView(selectedTab: $selectedTab)
                     .navigationDestination(for: Router.Destination.self) { destination in
-                                            switch destination {
-                                            case .signIn:
-                                                // Navigate to Sign In if needed from Home (e.g., logout flow)
-                                                SignInView()
-                                            case .signUp:
-                                                // Navigate to Sign Up if needed from Home
-                                                SignUpView()
-                                            case .home:
-                                                // Navigating to home again might reset the tab's stack
-                                                HomeView()
-                                                
-                                            case .productDetail(let product):
-                                                // Handle product detail navigation from Home
-                                                ProductDetailView(product: product)
-                                                   
-                                            case .mainTab:
-                                                // MainTab is the container, navigating to it from within
-                                                // a tab might not be the intended behavior.
-                                                // Consider if this case is necessary here.
-                                                 EmptyView() // Or handle appropriately
-                                            }
+                            switch destination {
+                                case .signIn:
+                                    SignInView()
+                                    
+                                case .signUp:
+                                    SignUpView()
+                                
+                                case .mainTab:
+                                    EmptyView()
+                                
+                                case .productDetail(product: let product):
+                                    ProductDetailView(product:product)
+                            }
                                         }
             .tabItem {
                 Label("Home",systemImage: "house")
             }
+            .tag(Tab.home)
+            
             
             //BASKET
-                BasketView()
+                BasketView(selectedTab: $selectedTab)
+                .environment(router)
                 .navigationDestination(for: Router.Destination.self) { destination in
                     switch destination {
-                    case .signIn:
-                        // Navigate to Sign In
-                        SignInView()
-                    case .signUp:
-                        // Navigate to Sign Up
-                        SignUpView()
-                    case .home:
-                        // Navigating to home
-                        HomeView()
-                    case .productDetail(let product):
-                        // Handle product detail
-                        ProductDetailView(product: product)
+                        case .signIn:
+                            SignInView()
+                            
+                        case .signUp:
+                            SignUpView()
+
+                        case .mainTab:
+                            EmptyView()
                         
-                    case .mainTab:
-                        
-                        EmptyView()
+                        case .productDetail(product: let product):
+                            ProductDetailView(product:product)
                     }
                 }
                 .tabItem {
                         Label("Basket",systemImage: "basket")
                 }
                 .badge(basketViewModel.products.count)
+                .tag(Tab.basket)
+            
             
             //MYACCOUNT
-            MyAccountView()
+            MyAccountView(selectedTab: $selectedTab)
                     .navigationDestination(for: Router.Destination.self) { destination in
-                                            switch destination {
-                                            case .signIn:
-                                                // Navigate to Sign In if needed from Home (e.g., logout flow)
-                                                SignInView()
-                                            case .signUp:
-                                                // Navigate to Sign Up if needed from Home
-                                                SignUpView()
-                                            case .home:
-                                                // Navigating to home again might reset the tab's stack
-                                                HomeView()
-                                            case .productDetail(let product):
-                                                // Handle product detail navigation from Home
-                                                ProductDetailView(product: product)
-                                            case .mainTab:
-                                                // MainTab is the container, navigating to it from within
-                                                // a tab might not be the intended behavior.
-                                                // Consider if this case is necessary here.
-                                                 EmptyView() // Or handle appropriately
-                                            }
-                                        }
+                                switch destination {
+                                    case .signIn:
+                                        SignInView()
+                                        
+                                    case .signUp:
+                                        SignUpView()
+            
+                                    case .mainTab:
+                                        EmptyView()
+                                    
+                                    case .productDetail(product: let product):
+                                        ProductDetailView(product:product)
+                                    }
+                                }
             .tabItem {
                 Label("My Account",systemImage: "person")
             }
+            .tag(Tab.myAccount)
                 
         }
+        .environment(router)
         .navigationBarBackButtonHidden()
     }
       

@@ -37,7 +37,6 @@ class Router : ObservableObject {
     public enum Destination : Codable,Hashable {
         case signIn
         case signUp
-        case home
         case mainTab
         case productDetail(product: Product)
     }
