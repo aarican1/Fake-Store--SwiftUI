@@ -15,7 +15,7 @@ final class MyAccountViewModel : ObservableObject {
     @Published var isExpiredToken : Bool =  false
     @Published var alertItem  : AlertItem?
     
-    
+    @MainActor
     func getProfile() async {
         do{
             isLoading = true
