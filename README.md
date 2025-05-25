@@ -23,10 +23,7 @@ NetworkService :
 Network işlemleri için Alamofire paketi kullanılmıştır. NetworkService sınıfı singleton hale getirilmiştir. Gizli bir baseUrl değişkeni ile  ana url korunmuştur.
 Ana bir "request" fonksiyonu ile isteklerin ana yapısı belirlenmiştir.
 -request Fonksiyonu-
-`func request<T: Decodable, P: Encodable>(endPoint: String,
-                               method: HTTPMethod = .get,
-                               parameters: P? = nil,
-                               headers: HTTPHeaders? = nil) async throws -> T {
+` func request<T: Decodable, P: Encodable>(endPoint: String,method: HTTPMethod = .get, parameters: P? = nil, headers: HTTPHeaders? = nil) async throws -> T {`
         
         let url = baseURL + endPoint
        
