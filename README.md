@@ -81,6 +81,7 @@ func request<T: Decodable, P: Encodable>(endPoint: String,method: HTTPMethod = .
 AuthorizationService : Kullanıcının giriş-kayıt vs. yetkilendirme işlemleri için oluşturulmuş bir sınıftır. NetworkService ve KeychainService nesneleri alır. EndPoint enum ı ile okunabilirlik artırılmaya çalışılmıştır.Kullanıcı giriş için network isteği yollanır ve kullanıcı access ve refresh tokenları keychain kaydedilir.
 Kullanıcı kayıt için network isteği yollanır ve kullanıcı kayıt edilir. Kullanıcının profile detaylarını almak için KeychainService ile token alınır servise istek atılır  ve profile detayları alınır.
 
+Devam Edecek...
 
 
  
